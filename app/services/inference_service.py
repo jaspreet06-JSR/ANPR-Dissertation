@@ -7,6 +7,9 @@ from app.services.plate_quality_service import (
 from app.services.plate_enhancement_service import (
     PlateEnhancementService
 )
+from app.services.plate_visibility_service import (
+    PlateVisibilityService
+)
 
 class InferenceService:
     """
@@ -29,6 +32,10 @@ class InferenceService:
 
         self.plate_enhancement_service = (
             PlateEnhancementService()
+        )
+
+        self.plate_visibility_service = (
+            PlateVisibilityService()
         )
 
     def detect_vehicles(self, image):
@@ -62,4 +69,20 @@ class InferenceService:
         return (
             self.plate_enhancement_service
             .enhance(plate_image)
+        )
+
+    def analyze_plate_visibility(
+        self,
+        plate_image,
+        bbox=None,
+        parent_shape=None
+    ):
+
+        return (
+            self.plate_visibility_service
+            .analyze(
+                plate_image,
+                bbox=bbox,
+                parent_shape=parent_shape
+            )
         )
